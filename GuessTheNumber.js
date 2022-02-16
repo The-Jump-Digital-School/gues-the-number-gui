@@ -45,7 +45,7 @@ export default class GuessTheNumber {
 	guess(num = 1) {
 		this.attempts.push(num);
 
-		if (this.attemptsRemaining() === 0)
+		if (this.attemptsRemaining === 0)
 			return GuessTheNumber.GAME_OVER;
 
 		if (num === this.target)
