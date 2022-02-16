@@ -1,80 +1,97 @@
 import GuessTheNumber from "./GuessTheNumber.js";
 
 const CLICK = "click";
+const { getElementById:getEl } = document;
 
-/*
+function getElements(...ids) {
+	return Object.fromEntries(
+		ids.map(
+			id =>
+			[
+				id,
+				getEl(id)
+			]
+		)
+	);
+}
 
-	1. For the following constants, we need to fetch
-	   their corresponding HTML elements. By pure
-	   coincidence, the names of these constants
-	   matches the ID of the HTML elements. Makes it
-	   easier ;)
+const elements = getElements(
+	"lowerBound",
+	"upperBound",
+	"guessesLeft",
+	"guessInput",
+	"guessButton",
+	"helpButton",
+	"closeButton",
+);
 
-	   (hint: use a method on the document object)
-*/
-const lowerBound;
-const upperBound;
+let game;
 
-const guessesLeft;
+function initGame(settings = {}) {
+	game = new GuessTheNumber({
+		lower: 1,
+		upper: 100,
+		tries: 10,
+	});
 
-const guessInput;
-const guessButton;
-const helpButton;
+	elements.lowerBound.innerHTML = game.lower;
+	elements.upperBound.textContent = game.upper;
 
-/*
+	elements.guessesLeft.innerHTML = game.attemptsRemaining;
+}
 
-	2. Create a guess the number game using the keyword
-	   "new". Use either the default settings, or pass
-	   in your own. We won't worry about concepts like
-	   EASY, MEDIUM, or HARD just yet.
 
-*/
-const game;
+elements.helpButton.addEventListener(
+	CLICK,
+	event => {
+		event.preventDefault();
 
-/*
+		const distance = game.help();
 
-	3. Display the lower and upper bound to the user. We
-	   do this by using our lowerBound and upperBound
-	   elements above and use their `innerHTML` property to
-	   assign a new text/string value inside each of these
-	   `<span>` tags. Be sure to look this up on MDN or
-	   otherwise. (hint: game.lower and game.upper)
+		alert(
+			distance === 0 ?
+				`You need to make a valid guess first, bozo.` :
+				`Your last guess was within ${ distance } of the right answer.`
+		);
+	}
+);
 
-*/
+elements.guessButton.addEventListener(CLICK, event => {
+	event.preventDefault();
 
-/*
+	const {
+		guessInput,
+		guessesLeft
+	} = elements;
 
-	4. Next, do something very similar but for our attempts
-	   remaining. Our `game` object has a attemptsRemaining
-	   method. Call this method and assign the value returned
-	   to the innerHTML property of our guessesLeft span element.
+	const state = game.guess(parseInt(guessInput.value));
 
-*/
+	const {
+		TOO_HIGH,
+		TOO_LOW,
+		EXACT_MATCH,
+		OUT_OF_BOUNDS,
+		GAME_OVER
+	} = GuessTheNumber;
 
-/*
+	guessesLeft.innerHTML = game.attemptsRemaining;
 
-	5. Add a click event listener to our help button. On click, call
-	   the `game.help()` method and, based on the value returned,
-	   ALERT to the user that their last guess was within 10 or 20
-	   or whatever from the target answer.
+	if (state === TOO_HIGH)
+		alert("Too high, guy.");
+	else if (state === TOO_LOW)
+		alert("Too low, bro.");
+	else if (state === OUT_OF_BOUNDS)
+		alert(`You need to guess a number between ${ game.lower } and ${ game.upper }`);
+	else {
+		if (state === EXACT_MATCH)
+			alert("You won, son!!! Nicely done.");
+		else if (state === GAME_OVER)
+			alert(`You have no tries left -- sad for you :(`);
+		initGame();
+	}
+	
 
-*/
+	guessInput.value = '';
+});
 
-/*
-
-	6. Finally, add a click listener to our guess button. Inside the
-	   callback function, we need to fetch the value (almost as if it
-	   is also the name of a property on our guessInput) of our guess
-	   input field and then pass that value to `game.guess`. Be sure to
-	   ensure the value is COERCED into a number from a string. Next,
-	   ALERT the user if the guess was too high, too low, etc etc.
-	   Lastly, call `game.attemptsRemaining` and assign that new value
-	   to our guessesLeft span element by using `innerHTML`.
-
-*/
-
-// SIDE NOTE: when you click these buttons, does something weird happen?
-// If so, might we need to prevent some sort of default behaviour? Perhaps?
-// Maybe? Quite possibly??? Hmmm....
-
-// That's all folks! Good luck!!
+initGame();
