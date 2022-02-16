@@ -21,7 +21,6 @@ const elements = getElements(
 	"guessInput",
 	"guessButton",
 	"helpButton",
-	"closeButton",
 );
 
 let game;

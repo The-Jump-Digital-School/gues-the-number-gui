@@ -1,0 +1,20 @@
+{
+  "name": "gues-the-number-gui",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Guess The Number Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Jump-Digital-School/gues-the-number-gui.git"
+  },
+  "author": "Graham Robertson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-Jump-Digital-School/gues-the-number-gui/issues"
+  },
+  "homepage": "https://github.com/The-Jump-Digital-School/gues-the-number-gui#readme"
+}
