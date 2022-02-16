@@ -1,7 +1,6 @@
 import GuessTheNumber from "./GuessTheNumber.js";
 
 const CLICK = "click";
-const { getElementById:getEl } = document;
 
 function getElements(...ids) {
 	return Object.fromEntries(
@@ -9,7 +8,7 @@ function getElements(...ids) {
 			id =>
 			[
 				id,
-				getEl(id)
+				document.getElementById(id)
 			]
 		)
 	);
