@@ -68,4 +68,5 @@ function help() {
 			`Your last guess was within ${ distance } of the right answer.`;
 }
 
+console.log(`STARTING GAME...`);
 initGame();
