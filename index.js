@@ -2,7 +2,7 @@ import { stdin as input, stdout as output, exit, argv } from "process";
 import { createInterface } from "readline";
 import { log as print } from "console";
 
-import GuessTheNumber from "./GuessTheNumber.js";
+import GuessTheNumber from "./src/GuessTheNumber.js";
 
 const DIFFICULTY = {
 	"easy": {

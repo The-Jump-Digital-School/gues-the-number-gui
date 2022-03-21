@@ -21,7 +21,7 @@ export default class GuessTheNumber {
 
 	maxTries;
 	attempts = [];
-	
+
 	get attemptsRemaining() {
 		return this.maxTries - this.attempts.length;
 	}
@@ -30,7 +30,7 @@ export default class GuessTheNumber {
 		const {
 			lower = 1,
 			upper = 100,
-			tries:maxTries = 10,
+			tries: maxTries = 10,
 		} = settings;
 
 		this.#lower = lower;
@@ -41,7 +41,7 @@ export default class GuessTheNumber {
 			target: randomInteger(lower, upper),
 		});
 	}
-	
+
 	guess(num = 1) {
 		this.attempts.push(num);
 
@@ -56,17 +56,17 @@ export default class GuessTheNumber {
 
 		if (num < this.target)
 			return GuessTheNumber.TOO_LOW;
-		
+
 		if (num > this.target)
 			return GuessTheNumber.TOO_HIGH;
 	}
-	
+
 	help() {
 		const lastGuess = this.attempts.at(-1);
-		
+
 		if (isNaN(lastGuess))
 			return 0;
-		
+
 		return Math.ceil(Math.abs(this.target - lastGuess) / 10) * 10;
 	}
 }
